@@ -1,0 +1,157 @@
+.field-icon {
+	float: right;
+	margin-left: -25px;
+	margin-top: -27px;
+	margin-right: 5px;
+	position: relative;
+	z-index: 2;
+	cursor: pointer;
+}
+
+@media screen {
+	@page {
+		size: "A4"; /* DIN A4 standard, Europe */
+		margin: 20mm 10mm;
+	}
+}
+
+@media print {
+	@page {
+		size: "A4"; /* DIN A4 standard, Europe */
+		margin: 10mm;
+	}
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+		height: auto;
+		overflow: visible;
+        print-color-adjust: exact !important; /*Chrome, Safari */
+		background-color: white !important;
+		font-weight: bold;
+	}
+
+    thead, tbody{
+        font-size:12px;
+    }
+    thead tr.font-size{
+        font-size:10px;
+    }
+}
+
+tr{
+	vertical-align: middle
+}
+
+.clock {
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#Date {
+	font-family: linkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	font-size: 12px;
+	text-align: center;
+	color: green;
+}
+
+.clock ul {
+	width: 200px;
+	margin: 0 auto;
+	padding: 0px;
+	list-style: none;
+	text-align: center;
+}
+
+.clock ul li {
+	display: inline;
+	font-size: 16px;
+	text-align: center;
+	font-family: BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	color: green;
+}
+
+#point {
+	position: relative;
+	-moz-animation: mymove 1s ease infinite;
+	-webkit-animation: mymove 1s ease infinite;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+@-webkit-keyframes mymove {
+	0% {
+		opacity: 1.0;
+		text-shadow: 0 0 20px #00c6ff;
+	}
+	50% {
+		opacity: 0;
+		text-shadow: none;
+	}
+	100% {
+		opacity: 1.0;
+		text-shadow: 0 0 20px #00c6ff;
+	}
+}
+
+@-moz-keyframes mymove {
+	0% {
+		opacity: 1.0;
+		text-shadow: 0 0 20px #00c6ff;
+	}
+	50% {
+		opacity: 0;
+		text-shadow: none;
+	}
+	100% {
+		opacity: 1.0;
+		text-shadow: 0 0 20px #00c6ff;
+	}
+}
+#product-items{
+	height: 660px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	margin:0 !important;
+	margin-top:10px !important;
+}
+#product-items::-webkit-scrollbar {
+	width: 3px !important;
+    height: 5px !important;
+}
+
+#product-items::-webkit-scrollbar-track {
+	background: #f1f1f1
+}
+
+#product-items::-webkit-scrollbar-thumb {
+	background: #c1c1c1;
+}
+#product-items::-webkit-scrollbar-thumb:hover {
+    background: green;
+}
+
+#items-sale{
+	height: 600px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	margin:0 !important;
+	margin-top:10px !important
+}
+#items-sale::-webkit-scrollbar {
+	width: 3px !important;
+    height: 5px !important;
+}
+
+#items-sale::-webkit-scrollbar-track {
+	background: #f1f1f1
+}
+
+#items-sale::-webkit-scrollbar-thumb {
+	background: #c1c1c1;
+}
+#items-sale::-webkit-scrollbar-thumb:hover {
+    background: green;
+}
+  
