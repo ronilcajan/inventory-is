@@ -126,8 +126,8 @@
                     <td class="right">- ₱ {{ number_format($discount, 2) ?? null }}</td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="font-size: 16px; font-weight:bold">Total:</td>
-                    <td class="right" style="font-size: 16px;font-weight:bold">₱
+                    <td colspan="2" style="font-size: 14px; font-weight:bold">Total:</td>
+                    <td class="right" style="font-size: 14px;font-weight:bold">₱
                         {{ number_format($sales->total_amount - $discount, 2) ?? null }}</td>
                 </tr>
             </tbody>

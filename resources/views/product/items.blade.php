@@ -58,11 +58,14 @@
                                 <td class="cell"><span class="truncate"> {{ $product->unit }}</span></td>
                                 <td class="cell"><span>₱ {{ number_format($product->price, 2) }}</span></td>
                                 <td class="cell"><span>₱ {{ number_format($product->mark_up, 2) }}</span></td>
-                                <td class="cell"><span class="truncate">
-                                        {{ number_format($product->stock_in_qty) }}</span></td>
                                 <td class="cell">
                                     <span
-                                        class="text-{{ $product->stock_out_qty <= $product->min_stocks ? 'danger' : 'dark' }}">
+                                        class={{ $product->stock_out_qty <= $product->min_stocks ? 'text-danger' : 'text-dark' }}>
+                                        {{ number_format($product->stock_in_qty) }}</span>
+                                </td>
+                                <td class="cell">
+                                    <span
+                                        class={{ $product->stock_out_qty <= $product->min_stocks ? 'text-danger' : 'text-dark' }}>
                                         {{ number_format($product->stock_out_qty) }}
                                     </span>
                                 </td>
