@@ -184,7 +184,7 @@ function payment_okay(){
     var quantity = [];
     var total_quantity = 0;
 
-    if(paymentcash >= grandtotal){
+    if(paymentcash >= payment){
  
         $('#sale-items tr .barcode').each(function(){
             barcode.push($(this).text());

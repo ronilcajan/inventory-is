@@ -104,6 +104,7 @@
         <table style="width: 100%">
             @php
                 $vat = $sales->total_amount * ($system->vat ?? 6 / 100);
+                $discount = $sales->total_amount * ($sales->discount / 100);
             @endphp
             <tbody>
                 <tr>
@@ -121,12 +122,13 @@
                     <td class="right">₱ {{ number_format($sales->total_amount, 2) ?? null }}</td>
                 </tr>
                 <tr>
-                    <td colspan="2">Discount:</td>
-                    <td class="right">-₱ {{ number_format($sales->discount, 2) ?? null }}</td>
+                    <td colspan="2">Discount({{ $sales->discount }}%):</td>
+                    <td class="right">- ₱ {{ number_format($discount, 2) ?? null }}</td>
                 </tr>
                 <tr>
-                    <td colspan="2">Total:</td>
-                    <td class="right">₱ {{ number_format($sales->total_amount - $sales->discount, 2) ?? null }}</td>
+                    <td colspan="2" style="font-size: 16px; font-weight:bold">Total:</td>
+                    <td class="right" style="font-size: 16px;font-weight:bold">₱
+                        {{ number_format($sales->total_amount - $discount, 2) ?? null }}</td>
                 </tr>
             </tbody>
         </table>
@@ -144,7 +146,7 @@
                 <tr>
                     <td colspan="2">Change:</td>
                     <td class="right">₱
-                        {{ number_format($sales->cash - ($sales->total_amount - $sales->discount), 2) ?? null }}</td>
+                        {{ number_format($sales->cash - ($sales->total_amount - $discount), 2) ?? null }}</td>
                 </tr>
             </tbody>
         </table>

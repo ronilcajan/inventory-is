@@ -42,8 +42,8 @@
                             <th class="cell">Unit</th>
                             <th class="cell">Price(P)</th>
                             <th class="cell">Mark-up Price(P)</th>
-                            <th class="cell">Stock In</th>
-                            <th class="cell">Stock Out</th>
+                            <th class="cell">Warehouse</th>
+                            <th class="cell">Store</th>
                             <th class="cell">Action</th>
                         </tr>
                     </thead>
