@@ -48,7 +48,6 @@
                         </tr>
                     </thead>
                     <tbody>
-
                         @foreach ($products as $product)
                             <tr>
                                 <td class="cell"><span class="truncate"> <img
@@ -60,14 +59,11 @@
                                 <td class="cell"><span>₱ {{ number_format($product->mark_up, 2) }}</span></td>
                                 <td class="cell">
                                     <span
-                                        class={{ $product->stock_out_qty <= $product->min_stocks ? 'text-danger' : 'text-dark' }}>
-                                        {{ number_format($product->stock_in_qty) }}</span>
+                                        class={{ $product->min_stocks > $product->stock_in_qty ? 'text-danger' : 'text-dark' }}>{{ number_format($product->stock_in_qty) }}</span>
                                 </td>
                                 <td class="cell">
                                     <span
-                                        class={{ $product->stock_out_qty <= $product->min_stocks ? 'text-danger' : 'text-dark' }}>
-                                        {{ number_format($product->stock_out_qty) }}
-                                    </span>
+                                        class={{ $product->min_stocks > $product->stock_out_qty ? 'text-danger' : 'text-dark' }}>{{ number_format($product->stock_out_qty) }}</span>
                                 </td>
                                 <td>
                                     <div class="row w-75">

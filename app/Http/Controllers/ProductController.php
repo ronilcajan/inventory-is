@@ -132,6 +132,7 @@ class ProductController extends Controller
                             ->leftJoin('supplier', 'stock_in.supplier_id', '=', 'supplier.id')
                             ->where('products.id', $product)
                             ->first();
+                            
         return view('product.edit_product',[
             'title' => 'Edit Products',
             'categories' => $category,

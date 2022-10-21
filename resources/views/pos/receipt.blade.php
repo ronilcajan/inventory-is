@@ -103,7 +103,7 @@
         <hr style="border-top: 1px dashed black">
         <table style="width: 100%">
             @php
-                $vat = $sales->total_amount * ($system->vat ?? 6 / 100);
+                $vat = $sales->total_amount * ($system->vat / 100);
                 $discount = $sales->total_amount * ($sales->discount / 100);
             @endphp
             <tbody>
@@ -113,7 +113,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">{{ $system->vat ?? 6 }}% VAT:</td>
+                    <td colspan="2">{{ $system->vat }}% VAT:</td>
                     <td class="right">₱ {{ number_format($vat, 2) ?? null }}
                     </td>
                 </tr>
