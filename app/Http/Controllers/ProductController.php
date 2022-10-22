@@ -266,8 +266,8 @@ class ProductController extends Controller
 
             StockIn::where('products_id',$request->products_id)->update($newStockinQTY);
 
-            $stockcard = StockCard::where('products_id', $request->products_id)->orderByDesc('id')->first();
-
+            // $stockcard = StockCard::where('products_id', $request->products_id)->orderByDesc('id')->first();
+            $stockcard = StockCard::where('products_id',$request->products_id)->latest()->first();
             $stock_card = array(    
                 'status' => 'stock-out',
                 'quantity' => $request->stock_out_qty,
@@ -290,19 +290,16 @@ class ProductController extends Controller
     }
 
     public function returntoWarehouse(Request $request){
-        
-        $product['user_id'] = Auth::user()->id;
 
         $check = StockOut::where('products_id',$request->products_id)->first(); //check if exist
-        
         if($check){
             $stockout = array(
                 'stock_out_qty' => $check->stock_out_qty - $request->return_qty,
             );
-            $stock = StockOut::where('products_id',$request->products_id)->update($stockout);
+            $stock = StockOut::where('id',$check->id)->update($stockout);
 
             if($stock){
-                $stock_in = StockIn::find($request->products_id)->first();
+                $stock_in = StockIn::where('products_id',$request->products_id)->first();
     
                 $newStockinQTY = array(
                     'stock_in_qty' => $stock_in->stock_in_qty + $request->return_qty
