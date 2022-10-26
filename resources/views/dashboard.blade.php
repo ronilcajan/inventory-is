@@ -94,7 +94,7 @@
                 <!--//app-card-header-->
                 <div class="app-card-body p-3 p-lg-4">
 
-                    <table class="table">
+                    <table class="table" style="font-size: 12px">
                         <thead>
                             <th>Name</th>
                             <th>Quantity</th>

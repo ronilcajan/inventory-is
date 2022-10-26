@@ -85,6 +85,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::delete('/sales/{receipt}/delete', [SalesController::class, 'destroy_sales']);
     Route::delete('/sales/item/{item}/delete', [SalesController::class, 'destroy']);
 
+    Route::get('/report/sales', [SalesController::class, 'sales_report']);
+    Route::get('/report/items', [ProductController::class, 'items_report']);
+
     Route::get('/users', [UserController::class, 'show']);
     Route::post('/user/store', [UserController::class, 'store']);
     Route::post('/updateUser', [UserController::class, 'update']);

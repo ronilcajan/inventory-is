@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Sales extends Model
 {
@@ -22,6 +23,16 @@ class Sales extends Model
         if($filter['search'] ?? false){
             $query->where('total_qty','like', '%'. request('search'). '%')
                     ->orWhere('total_amount', 'like', '%'. request('search'). '%');
+        }
+        if($filter['from'] ?? false){
+            $startDate = Carbon::createFromFormat('Y-m-d', request('from'));
+            
+            
+            if(request('to')){
+                $endDate = Carbon::createFromFormat('Y-m-d', request('to'));
+                $query->whereBetween('sales.created_at',[$startDate,$endDate]);
+            }
+            $query->where('sales.created_at', '>', $startDate);
         }
     }
 }
