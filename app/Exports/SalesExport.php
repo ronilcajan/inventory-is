@@ -26,12 +26,12 @@ class SalesExport implements FromQuery, WithHeadings
             $data = DB::table('sales')
             ->join('users','sales.user_id','=','users.id')
             ->whereBetween('sales.created_at',[ $this->from_date,$this->to_date])
-            ->select('sales.id','users.username','total_qty','total_amount','discount','cash','sales.created_at')
+            ->select('sales.created_at','sales.id','users.username','total_qty','discount','total_amount','cash')
             ->orderBy('sales.id');
         }else{
             $data = DB::table('sales')
             ->join('users','sales.user_id','=','users.id')
-            ->select('sales.id','users.username','total_qty','total_amount','discount','cash','sales.created_at')
+            ->select('sales.created_at','sales.id','users.username','total_qty','discount','total_amount','cash')
             ->orderBy('sales.id');
         }
         return $data;
@@ -39,13 +39,14 @@ class SalesExport implements FromQuery, WithHeadings
 
     public function headings(): array{
         return [
+            'Date',
             'ID',
             'Cashier',
             'Total QTY',
-            'Total Amount',
             'Discount Added',
+            'Total Amount',
             'Cash Amount',
-            'Date'
+            
         ];
     }
 }

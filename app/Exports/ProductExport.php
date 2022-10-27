@@ -17,7 +17,7 @@ class ProductExport implements FromQuery, WithHeadings
     function __construct($search) {
         $this->search = $search;
     }
-
+ 
     public function query(){
 
         if($this->search){

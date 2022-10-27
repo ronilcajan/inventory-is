@@ -19,3 +19,4 @@
 
 <script src="{{ asset('js/custom.js') }}"></script>
 <script src="{{ asset('js/pos.js') }}"></script>
+<script src="{{ asset('js/report.js') }}"></script>

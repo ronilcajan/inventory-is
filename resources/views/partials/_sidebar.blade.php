@@ -188,6 +188,9 @@
                                         class="submenu-link {{ Request::segment(3) == 'sales' ? 'active' : null }}"
                                         href="/admin/report/sales">Sales</a></li>
                                 <li class="submenu-item"><a
+                                        class="submenu-link {{ Request::segment(3) == 'sold_items' ? 'active' : null }}"
+                                        href="/admin/report/sold_items">Sold Items</a></li>
+                                <li class="submenu-item"><a
                                         class="submenu-link {{ Request::segment(3) == 'items' ? 'active' : null }}"
                                         href="/admin/report/items">Items</a></li>
                             </ul>

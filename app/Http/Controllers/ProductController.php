@@ -11,6 +11,7 @@ use App\Models\Supplier;
 use App\Models\StockCard;
 use Illuminate\Http\Request;
 use App\Exports\ProductExport;
+use App\Exports\StockCardExport;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
@@ -37,19 +38,21 @@ class ProductController extends Controller
     }
 
     public function items_report(Request $request){
+        
         if($request->export){
-            return Excel::download(new ProductExport($request->search), date('Y-m-d-h-i-s').'-sales-report.xlsx');
+            return Excel::download(new StockCardExport($request->from,$request->to), date('Y-m-d-h-i-s').'-items-report.xlsx');
         }
 
         $products = StockCard::select('*','stock_card.created_at as created_at')
             ->leftJoin('supplier','stock_card.supplier', '=', 'supplier.id')
             ->leftJoin('products','stock_card.products_id', '=', 'products.id')
             ->orderBy('stock_card.created_at','ASC')
-            ->filter(request(['search']))
+            ->filter(request(['from']))
+            
             ->paginate(10);
 
         return view('product.items_report',[
-            'title' => 'Products Reports',
+            'title' => 'Product Reports',
             'products' => $products,
         ]);
     }

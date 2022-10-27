@@ -40,71 +40,51 @@
     <div class="app-card app-card-orders-table shadow-sm mb-5">
         <div class="app-card-body">
             <div class="table-responsive">
-                <table class="table app-table-hover mb-0 text-left">
+                <table class="table app-table-hover mb-0 text-left" id="sales-report">
                     <thead>
                         <tr>
                             <th class="cell">Date</th>
-                            <th class="cell">Name</th>
-                            <th class="cell">Status</th>
+                            <th class="cell">Receipt</th>
+                            <th class="cell">Item</th>
                             <th class="cell">Quantity</th>
-                            <th class="cell">Unit</th>
-                            <th class="cell">Unit Cost</th>
-                            <th class="cell">Total Cost</th>
-                            <th class="cell">Reference No.</th>
-                            <th class="cell">Supplier</th>
-                            <th class="cell">Mark Up Price(P)</th>
-                            <th class="cell">Store Incharge</th>
-                            <th class="cell">Balance</th>
+                            <th class="cell">Price</th>
+                            <th class="cell">Total</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($products as $row)
+                        @foreach ($items as $row)
                             <tr>
                                 <td class="cell" style="font-size: 12px">
                                     <span
                                         class="truncate">{{ date('Y-m-d h:i:s ', strtotime($row->created_at)) }}</span>
                                 </td>
+                                <td class="cell">
+                                    <span class="truncate">{{ $row->sales_id }}</span>
+                                </td>
                                 <td class="cell"><span class="truncate"> <img
                                             src="{{ $row->image ? asset('storage/' . $row->image) : asset('/images/product.png') }}"
                                             width="30" alt="{{ $row->name }}"> {{ $row->name }}</span></td>
-                                <td class="cell">
-                                    <span
-                                        class="badge bg-{{ $row->status == 'stock-in' ? 'success' : 'danger' }}">{{ $row->status }}</span>
+                                <td class="cell qty">
+                                    <span class="truncate">{{ number_format($row->sale_qty) }}</span>
                                 </td>
-                                <td class="cell">
-                                    <span class="truncate">{{ number_format($row->quantity) }}</span>
-                                </td>
-                                <td class="cell">
-                                    <span class="truncate">{{ $row->unit }}</span>
-                                </td>
-                                <td class="cell">
+                                <td class="cell discount">
                                     <span class="truncate">₱
-                                        {{ number_format($row->price, 2) }}</span>
+                                        {{ number_format($row->sale_price, 2) }}</span>
                                 </td>
-                                <td class="cell">
+                                <td class="cell paid">
                                     <span class="truncate">₱
-                                        {{ number_format($row->quantity * $row->price, 2) }}</span>
-                                </td>
-                                <td class="cell">
-                                    <span class="truncate">{{ $row->reference }}</span>
-                                </td>
-                                <td class="cell">
-                                    <span class="truncate">{{ $row->supplier_name }}</span>
-                                </td>
-                                <td class="cell">
-                                    <span class="truncate">₱
-                                        {{ number_format($row->mark_up_price, 2) }}</span>
-                                </td>
-                                <td class="cell">
-                                    <span class="truncate">{{ $row->incharge }}</span>
-                                </td>
-                                <td class="cell">
-                                    <span class="truncate">
-                                        {{ number_format($row->balance) }}
-                                    </span>
+                                        {{ number_format($row->sale_qty * $row->sale_price, 2) }}</span>
                                 </td>
                             </tr>
                         @endforeach
+                    <tfoot>
+                        <tr>
+                            <th colspan="3" style="text-align: right">Total:</th>
+                            <th class="text-right" id="total_qty"></th>
+                            <th class="text-right" id="total_discount"></th>
+                            <th class="text-right" id="total_paid"></th>
+                        </tr>
+                    </tfoot>
 
                     </tbody>
                 </table>
@@ -117,7 +97,7 @@
     <!--//app-card-->
     <nav class="app-pagination mt-5">
         <ul class="pagination justify-content-center">
-            {{ $products->links() }}
+            {{ $items->links() }}
         </ul>
     </nav>
     <!-- Modal -->

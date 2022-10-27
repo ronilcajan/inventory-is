@@ -87,6 +87,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     Route::get('/report/sales', [SalesController::class, 'sales_report']);
     Route::get('/report/items', [ProductController::class, 'items_report']);
+    Route::get('/report/sold_items', [SalesController::class, 'sold_items_report']);
 
     Route::get('/users', [UserController::class, 'show']);
     Route::post('/user/store', [UserController::class, 'store']);

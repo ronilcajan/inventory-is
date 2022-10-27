@@ -7,6 +7,8 @@ use App\Models\StockIn;
 use App\Models\StockOut;
 use App\Models\SaleItems;
 use App\Exports\SalesExport;
+use App\Exports\SoldItemExport;
+use App\Models\SoldItems;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -36,9 +38,31 @@ class SalesController extends Controller
                     ->join('users','sales.user_id','=','users.id')
                     ->orderBy('sales.created_at','DESC')
                     ->filter(request(['from']))->paginate(10);
+                    
         return view('sales.report',[
             'title' => 'Sales Report',
             'sales' => $sales
+        ]);
+    }
+
+    public function sold_items_report(Request $request){
+        $from = $request->from;
+        $to  = $request->to;
+        $export  = $request->export;
+
+        if($export){
+            return Excel::download(new SoldItemExport($from,$to), date('Y-m-d-h-i-s').'-sold-items-report.xlsx');
+        }
+
+        $items = SaleItems::select('*','sale_items.id as id','sale_items.created_at as created_at','sales.id as sale_id')
+                    ->leftJoin('products','products.barcode', '=', 'sale_items.sale_product')
+                    ->leftJoin('sales','sales.id', '=', 'sale_items.sales_id')
+                    ->orderBy('sale_items.created_at','DESC')
+                    ->filter(request(['from']))->paginate(10);
+                    
+        return view('sales.sold_items_report',[
+            'title' => 'Sold Items',
+            'items' => $items
         ]);
     }
 

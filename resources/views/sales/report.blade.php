@@ -1,8 +1,9 @@
 <x-admin-layout>
     <div class="row g-3 mb-4 align-items-center justify-content-between">
         <div class="col-auto">
-            <h1 class="app-page-title mb-0">{{ $title }}
-                {{ $_GET['from'] ?? null ? ': from ' . date('F d, Y', strtotime($_GET['from'])) : null }}</h1>
+            <h1 class="app-page-title mb-0">
+                {{ $title }}{{ $_GET['from'] ?? null ? ': from ' . date('F d, Y', strtotime($_GET['from'])) : null }}{{ $_GET['to'] ?? null ? ' to ' . date('F d, Y', strtotime($_GET['to'])) : null }}
+            </h1>
         </div>
 
         <div class="col-auto">
@@ -40,42 +41,53 @@
     <div class="app-card app-card-orders-table shadow-sm mb-5">
         <div class="app-card-body">
             <div class="table-responsive">
-                <table class="table app-table-hover mb-0 text-left">
+                <table class="table app-table-hover mb-0 text-left" id="sales-report">
                     <thead>
                         <tr>
-                            <th class="cell">Receipt No.</th>
-                            <th class="cell">Total QTY</th>
-                            <th class="cell">Amount Paid</th>
-                            <th class="cell">Discount</th>
-                            <th class="cell">Cashier</th>
                             <th class="cell">Date</th>
+                            <th class="cell">Receipt No.</th>
+                            <th class="cell">Cashier</th>
+                            <th class="cell">Total QTY</th>
+                            <th class="cell">Discount</th>
+                            <th class="cell">Amount Paid</th>
+
                         </tr>
                     </thead>
                     <tbody>
 
                         @foreach ($sales as $row)
                             <tr>
+                                <td class="cell" style="font-size: 12px">
+                                    {{ date('Y-m-d h:i:s A', strtotime($row->sale_created)) }}
+                                </td>
                                 <td class="cell">
                                     <span class="truncate">{{ $row->id }}</span>
                                 </td>
-                                <td class="cell">
+                                <td class="cell">{{ $row->username }}</td>
+                                <td class="cell qty">
                                     <span class="truncate">
                                         {{ number_format($row->total_qty) }}
                                     </span>
                                 </td>
-                                <td class="cell">
+
+                                <td class="cell discount">₱
+                                    {{ number_format($row->total_amount * ($row->discount / 100), 2) }}
+                                </td>
+                                <td class="cell paid">
                                     <span class="truncate">₱
                                         {{ number_format($row->total_amount - $row->total_amount * ($row->discount / 100), 2) }}
                                     </span>
                                 </td>
-                                <td class="cell">₱ {{ number_format($row->total_amount * ($row->discount / 100), 2) }}
-                                </td>
-                                <td class="cell">{{ $row->username }}</td>
-                                <td class="cell">{{ date('Y-m-d h:i:s A', strtotime($row->sale_created)) }}
-                                </td>
                             </tr>
                         @endforeach
-
+                    <tfoot>
+                        <tr>
+                            <th colspan="3" style="text-align: right">Total:</th>
+                            <th class="text-right" id="total_qty"></th>
+                            <th class="text-right" id="total_discount"></th>
+                            <th class="text-right" id="total_paid"></th>
+                        </tr>
+                    </tfoot>
 
                     </tbody>
                 </table>
