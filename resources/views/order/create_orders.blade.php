@@ -74,7 +74,7 @@
                                 <td>
                                     <select class="form-control barcode" name="product_id[]"
                                         onchange="loadProducts(this)" required>
-                                        <option value="">Search Barcode</option>
+                                        <option value="">Search Barcode or Item</option>
                                     </select>
                                 </td>
                                 <td class="cell">

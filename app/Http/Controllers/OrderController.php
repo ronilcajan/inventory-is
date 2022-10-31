@@ -228,7 +228,7 @@ class OrderController extends Controller
 
         if($request->has('q')){
             $search = $request->q;
-            $data = Products::where('barcode','LIKE',"%$search%")->get();
+            $data = Products::where('barcode','LIKE',"%$search%")->orWhere('name','LIKE',"%$search%")->get();
         }
         return response()->json($data);
     }

@@ -130,7 +130,7 @@ function select2Barcode(){
               return {
                 results:  $.map(data, function (item) {
                       return {
-                          text: item.barcode,
+                          text: item.barcode+' - '+item.name,
                           id: item.id,
                       }
                   })
