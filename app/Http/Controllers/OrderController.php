@@ -210,17 +210,16 @@ class OrderController extends Controller
 
     public function view($order){
         $supplier = Supplier::join('order', 'supplier.id', '=', 'order.supplier_id')->where('order.id',$order)->first();
-        $order = Order::find($order);
-
+        $orders = Order::find($order);
         $order_items = Order::join('order_items', 'order.id', '=', 'order_items.order_id')
                                 ->join('products', 'order_items.products_id', '=', 'products.id')
-                                ->find($order);
+                                ->where('order.id',$order)->get();
         return view('order.order_details',[
             'title' => 'Purchase Order',
             'supplier' => $supplier,
-            'order' => $order,
+            'order' => $orders,
             'order_items' => $order_items
-        ]);
+        ]); 
     }
 
     public function search_barode(Request $request){
