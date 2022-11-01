@@ -166,7 +166,7 @@ function addRow(){
     var html_code = ''; 
     html_code += '<tr>';
     html_code += '<td class="cell">'+count+'</td>';
-    html_code += '<td><select class="form-control barcode" name="product_id[]" onchange="loadProducts(this)" required><option value="">Search Barcode</option></select></td>';
+    html_code += '<td><select class="form-control barcode" name="product_id[]" onchange="loadProducts(this)" required><option value="">Search Barcode or Item</option></select></td>';
     html_code += '<td class="cell"><input type="text" class="form-control product_name" readonly></td>';
     html_code += '<td class="cell"><input type="text" class="form-control product_qty" name="product_qty[]" onchange="calculateTotalAmount(this)" required></td>';
     html_code += '<td class="cell"><input type="number" class="form-control product_price" name="product_price[]" onchange="calculateTotalAmount1(this)" required></td>';
