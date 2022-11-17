@@ -12,10 +12,14 @@
 <script src="//unpkg.com/alpinejs" defer></script>
 <!-- Charts JS -->
 <script src="{{ asset('plugins/chart.js/chart.min.js') }}"></script>
-<script src="{{ asset('js/index-charts.js') }}"></script>
+
 
 <!-- Page Specific JS -->
-<script src="{{ asset('js/app.js') }}"></script>
+@if (Request::segment(2) != 'pos')
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/index-charts.js') }}"></script>
+@endif
+
 
 <script src="{{ asset('js/custom.js') }}"></script>
 <script src="{{ asset('js/pos.js') }}"></script>

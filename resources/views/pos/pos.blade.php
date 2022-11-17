@@ -6,7 +6,7 @@
                 <!--//app-card-header-->
                 <div class="app-card-body p-3">
                     <form>
-                        <input type="text" name="search_product" class="form-control search-docs"
+                        <input type="text" name="search_product" class="form-control search-docs" id="search_barcode"
                             placeholder="Enter barcode or product name here" autofocus onkeyup="searchProducts(this)">
                     </form>
                 </div>
