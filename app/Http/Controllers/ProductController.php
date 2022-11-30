@@ -188,12 +188,17 @@ class ProductController extends Controller
             
             if($check){
                 $stock_in = array(
-                    'price' =>  $request->price,
-                    'stock_in_qty' => $request->quantity,
                     'supplier_id' => $request->supplier_id,
                 );
-    
+
                 StockIn::where('products_id', $product->id)->update($stock_in);
+
+                $stock_out = array(
+                    'mark_up' =>  $request->price,
+                );
+
+                StockOut::where('products_id', $product->id)->update($stock_out);
+
             }else{
                 $stock_in = array(
                     'reference' => '',

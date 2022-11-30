@@ -154,7 +154,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="item-label mb-1"><strong>Product Barcode</strong> </label>
-                            <input type="text" class="form-control" placeholder="Product barcode" readonly
+                            <input type="text" class="form-control" placeholder="Product barcode"
                                 value="{{ empty($products) ? 10001 : $products->barcode + 1 }}" name="barcode"
                                 required>
                             @error('name')

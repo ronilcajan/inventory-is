@@ -1,18 +1,20 @@
 <?php
 
+use App\Models\Discount;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\POSController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DeliveryController;
-use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\POSController;
-use App\Http\Controllers\SalesController;
-use App\Http\Controllers\SettingsController;
 
 Route::get('/', function(){
     return redirect('auth');
@@ -88,6 +90,10 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/report/sales', [SalesController::class, 'sales_report']);
     Route::get('/report/items', [ProductController::class, 'items_report']);
     Route::get('/report/sold_items', [SalesController::class, 'sold_items_report']);
+
+    Route::get('/discount', [DiscountController::class, 'show'])->name('discount');
+    Route::post('/discount/store', [DiscountController::class, 'store'])->name('discount-create');
+    Route::delete('/discount/{discount}/delete', [DiscountController::class, 'destroy']);
 
     Route::get('/users', [UserController::class, 'show']);
     Route::post('/user/store', [UserController::class, 'store']);

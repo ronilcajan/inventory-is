@@ -13,10 +13,46 @@
                 <!--//app-card-body-->
             </div>
             <!--//app-card-->
-            <div class="row" id="product-items" style="">
+            <div id="product-items" style="">
                 @unless(count($products) == 0)
                     @foreach ($products as $row)
-                        <div class="col-6 col-md-4 mt-2">
+                        <div class="mt-2">
+                            <div class="app-card app-card-doc shadow-sm row p-2">
+                                <div class="col-auto">
+                                    <img class="thumb-image"
+                                        src="{{ $row->image ? asset('storage/' . $row->image) : asset('/images/product.png') }}"
+                                        alt="" width="50">
+                                    <a class="app-card-link-mask" href="#addQTY" data-bs-toggle="modal"
+                                        data-qty="{{ $row->stock_out_qty }}" data-barcode="{{ $row->barcode }}"
+                                        data-name="{{ $row->name }}" data-unit="{{ $row->unit }}"
+                                        data-price="{{ $row->mark_up }}" onclick="itemSelect(this)"></a>
+                                </div>
+                                <div class="col-auto">
+                                    <h2 class="app-doc-title mb-0">
+                                        <a href="#addQTY" data-bs-toggle="modal" data-qty="{{ $row->stock_out_qty }}"
+                                            data-barcode="{{ $row->barcode }}" data-name="{{ $row->name }}"
+                                            data-unit="{{ $row->unit }}" data-price="{{ $row->mark_up }}"
+                                            onclick="itemSelect(this)">{{ $row->name }}</a>
+                                    </h2>
+                                    <div class="app-doc-meta row mt-1">
+                                        <div class="col-auto">
+                                            <span class="text-muted">
+                                                Stocks:</span> {{ $row->stock_out_qty }}
+                                        </div>
+                                        <div class="col-auto ">
+                                            <span class="text-muted">
+                                                Unit:</span> {{ $row->unit }}
+                                        </div>
+                                        <div class="col-auto ">
+                                            <span class="text-muted">
+                                                Price:</span> P
+                                            {{ number_format($row->mark_up, 2) }}</li>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- <div class="col-6 col-md-4 mt-2">
                             <div class="app-card app-card-doc shadow-sm">
                                 <div class="app-card-thumb-holder p-3">
                                     <div class="app-card-thumb">
@@ -46,7 +82,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     @endforeach
                 @endunless
 

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('total_qty')->nullable();
             $table->float('total_amount')->nullable();
             $table->integer('discount')->nullable();
+            $table->foreignId('discount_id')->references('id')->on('discount')->onUpdate('cascade')->onDelete('cascade');    
             $table->foreignId('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');    
             $table->timestamps();
         });

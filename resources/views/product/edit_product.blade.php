@@ -121,7 +121,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-3 col-sm-12 mb-4">
-                                    <label class="item-label"><strong>Price(P)</strong> </label>
+                                    <label class="item-label"><strong>Mark-up Price(P)</strong> </label>
                                     <input type="number" min="0.00" step="0.01" class="form-control"
                                         placeholder="Enter price" value="{{ $product->price }}" name="price"
                                         required>

@@ -64,7 +64,7 @@
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 mb-4">
                                     <label class="item-label"><strong>Barcode(must be unique):</strong> </label>
-                                    <input type="text" class="form-control" placeholder="Enter barcode" readonly
+                                    <input type="text" class="form-control" placeholder="Enter barcode"
                                         value="{{ empty($product->barcode) ? 10001 : $product->barcode + 1 }}"
                                         name="barcode" required>
                                     @error('barcode')
@@ -119,7 +119,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-3 col-sm-12 mb-4">
-                                    <label class="item-label"><strong>Price</strong> </label>
+                                    <label class="item-label"><strong>Mark-up Price</strong> </label>
                                     <input type="number" min="0.00" step="0.01" class="form-control"
                                         placeholder="Enter price" value="{{ old('price') }}" name="price" required>
                                     @error('price')

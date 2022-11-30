@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Settings;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
@@ -43,5 +44,15 @@ class DatabaseSeeder extends Seeder
         
         $user->assignRole($role1);
 
+        // create system details
+        Settings::create([
+            'business_name' => 'Softwarezen',
+            'system_name'=>'POS',
+            'address'=>'Plaridel Mis Occ',
+            'contact'=>'09459761275',
+            'email'=>'softwarezen@gmail.com',
+            'logo' => '',
+            'vat'=> 6
+        ]);
     }
 }

@@ -76,7 +76,7 @@
                                                     href="/admin/orders/{{ $order->id }}/delivered"
                                                     title="Clcik to mark as Delivered"
                                                     onclick="return confirm('Mark this order as delivered?');">
-                                                    Done
+                                                    Recieved
                                                 </a>
                                             </div>
                                             <div class="col-auto p-0">
