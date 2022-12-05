@@ -141,7 +141,7 @@ function select2Barcode(){
 }
 
 select2Barcode();
-// check products in delivery
+// check products in delivery page
 function loadProducts(that){
     var id = $(that).val();
     $.ajax({
@@ -159,7 +159,7 @@ function loadProducts(that){
      });
 }
 
-// add button in delivery
+// add button in delivery page
 var count = $('table#order_table tbody tr:last').index() + 1;
 function addRow(){
     count += 1;
@@ -175,11 +175,11 @@ function addRow(){
     $("#order_table").append(html_code);
     select2Barcode();
 }
-// remove button in delivery
+// remove button in delivery page
 function removeButton(that){
     $(that).closest("tr").remove();
 }
-// calculate total amount in delivery
+// calculate total amount in delivery page
 function calculateTotalAmount(that){
 
     var qty = $(that).closest("tr").find('td input.product_qty').val();
@@ -197,7 +197,7 @@ function calculateTotalAmount(that){
     $('#totalQty').val(parseInt(totalqty));
     $('#grandTotal').val((parseFloat(totalamount).toFixed(2)));
 }
-
+// calculate total qty in delivery page
 function calculateTotalQTY(){
     var totalqty = 0;
     $('#order_table tr td input.product_qty').each(function(){
@@ -205,6 +205,7 @@ function calculateTotalQTY(){
     });
     return totalqty;
 }
+// calculate total in delivery page
 function calculateTotal(){
     var total = 0;
     $('#order_table tr td input.product_amount').each(function(){
@@ -212,7 +213,7 @@ function calculateTotal(){
     });
     return total;
 }
-
+// calculate total amount in delivery page
 function calculateTotalAmount1(that){
     var qty = $(that).closest("tr").find('td input.product_qty').val();
     var price = $(that).closest("tr").find('td input.product_price').val();
@@ -242,6 +243,7 @@ function printDiv(divName) {
     document.body.innerHTML = originalContents;
 }
 
+// add percentage on warehouse page
 function addpercent(that){
     var markup = 0;
     var initial = 0;
@@ -255,3 +257,21 @@ console.log(vat)
 
     $('#mark_up').val(markup);
 }
+
+// add comma dynamically on numbers
+function addCommas(nStr){
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+}
+$('#sale_discount, #payment_cash').keyup(function () {
+    var value = $(this).val().replace(/,/g,'');
+    console.log(value);
+    $(this).val(addCommas(value));
+});

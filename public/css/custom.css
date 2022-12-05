@@ -154,4 +154,15 @@ tr{
 #items-sale::-webkit-scrollbar-thumb:hover {
     background: green;
 }
-  
+
+/* remove arrow in input number */
+/* Chrome, Safari, Edge, Opera */
+.item_qty::-webkit-outer-spin-button,
+.item_qty::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+.item_qty {
+  -moz-appearance: textfield;
+}

@@ -248,6 +248,42 @@
             </div>
         </div>
 
+        <div class="modal fade" id="editQTY" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Edit Quantity</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <input type="text" class="form-control text-center" id="edit_product_name"
+                                style="height:40px;font-size:20px" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <input type="number" class="form-control text-center" id="edit_product_qty"
+                                style="height:80px;font-size:30px" required>
+                            <div>
+                                <small class="text-danger">Please enter not more than <span id="edit_max_qty"></span>
+                                    <span id="unit_t"></span>.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" id="edit_product_unit">
+                        <input type="hidden" id="edit_product_price">
+                        <input type="hidden" id="edit_barcode">
+                        <input type="hidden" id="edit_max_qty1">
+                        <input type="hidden" id="rowcount">
+                        <button type="button" class="btn app-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn app-btn-primary" onclick="editItem()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="modal fade" id="discountModal" data-bs-backdrop="static" data-bs-keyboard="false"
             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -259,13 +295,14 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <input type="number" step="0.5" class="form-control text-center" id="sale_discount"
+                            <input type="text" class="form-control text-center" id="sale_discount"
                                 style="height:80px;font-size:30px" required>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn app-btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn app-btn-primary" onclick="addDiscount()">Submit</button>
+                        <button type="button" class="btn app-btn-primary" onclick="addDiscount()">Add
+                            Discount</button>
                     </div>
                 </div>
             </div>
@@ -282,8 +319,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <input type="number" step="0.5" class="form-control text-center" id="payment_cash"
-                                onblur="paymentChange(this)" style="height:80px;font-size:30px" required>
+                            <input type="text" step="0.5" class="form-control text-center" id="payment_cash"
+                                onkeyup="paymentChange(this)" style="height:80px;font-size:30px" required>
                             <div>
                                 <small class="text-danger">Amount to pay ₱ <span id="payment_to_pay"></span>.</small>
                             </div>
