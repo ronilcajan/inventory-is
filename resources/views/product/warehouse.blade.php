@@ -1,7 +1,7 @@
 @php
-$system = DB::table('settings')
-    ->get()
-    ->first();
+    $system = DB::table('settings')
+        ->get()
+        ->first();
 @endphp
 <x-admin-layout>
     <div class="row g-3 mb-4 align-items-center justify-content-between">
@@ -107,6 +107,18 @@ $system = DB::table('settings')
                 <form action="{{ route('move-to-store') }}" method="post">
                     <div class="modal-body">
                         @csrf
+                        <div class="col-auto">
+                            <div class="mb-3">
+                                <label> <strong>Date</strong> </label>
+                                <input type="date" class="form-control" placeholder="Title" name="date" required
+                                    value="{{ old('date') }}">
+                                @error('date')
+                                    <div>
+                                        <small class="text-danger">{{ $message }}</small>
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-auto">
                                 <div class="mb-3">

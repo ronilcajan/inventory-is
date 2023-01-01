@@ -21,8 +21,9 @@ class Sales extends Model
 
     public function scopeFilter($query, array $filter){
         if($filter['search'] ?? false){
-            $query->where('total_qty','like', '%'. request('search'). '%')
-                    ->orWhere('total_amount', 'like', '%'. request('search'). '%');
+            $query->where('sales.total_qty','like', '%'. request('search'). '%')
+                    ->orWhere('sales.total_amount', 'like', '%'. request('search'). '%')
+                    ->orWhere('users.username', 'like', '%'. request('search'). '%');
         }
         if($filter['from'] ?? false){
             $startDate = Carbon::createFromFormat('Y-m-d', request('from'));

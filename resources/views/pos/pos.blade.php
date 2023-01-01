@@ -174,13 +174,11 @@
                                 </tr>
                                 <tr class="d-flex align-items-center justify-content-between">
                                     <th class="border-0 ">
-                                        @role('admin')
-                                            <div
-                                                class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark">
-                                                DISCOUNT (<span id="discount_percentage"></span> %)<a href="#discountModal"
-                                                    data-bs-toggle="modal"><i class="fa-solid fa-pencil"></i></a>
-                                            </div>
-                                        @endrole
+                                        <div
+                                            class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark">
+                                            DISCOUNT (<span id="discount_percentage"></span> %)<a href="#discountModal"
+                                                data-bs-toggle="modal"><i class="fa-solid fa-pencil"></i></a>
+                                        </div>
                                     </th>
                                     <td class="border-0 justify-content-end d-flex text-dark font-size-base"><span
                                             id="discount" class="text-danger">0</span></td>
@@ -294,12 +292,22 @@
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <div>
+                            <label>Enter Passcode:</label>
+                            <input type="password" class="form-control text-center" id="pin"
+                                style="height:40px;" required>
+                        </div>
+                    </div>
+
+                    <div class="modal-body">
                         <div class="mb-3">
+                            <label>Enter Discount:</label>
                             <input type="text" class="form-control text-center" id="sale_discount"
                                 style="height:80px;font-size:30px" required>
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <input type="hidden" value="{{ $system->passcode }}" id="pos-pin">
                         <button type="button" class="btn app-btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         <button type="button" class="btn app-btn-primary" onclick="addDiscount()">Add
                             Discount</button>

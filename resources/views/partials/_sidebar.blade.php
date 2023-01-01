@@ -152,7 +152,7 @@
                         </a>
                         <!--//nav-link-->
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                         <a class="nav-link {{ Request::segment(2) == 'discount' ? 'active' : null }}"
                             href="{{ route('discount') }}">
@@ -168,7 +168,7 @@
                             <span class="nav-link-text">Discount</span>
                         </a>
                         <!--//nav-link-->
-                    </li>
+                    </li> --}}
                     <li class="nav-item has-submenu">
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                         <a class="nav-link submenu-toggle {{ Request::segment(2) == 'report' ? 'active' : null }}"

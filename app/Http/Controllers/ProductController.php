@@ -303,7 +303,8 @@ class ProductController extends Controller
                 'mark_up_price' => $request->mark_up,
                 'incharge' => $request->incharge,
                 'balance' => $stockcard->balance - $stock_out_qty,
-                'products_id' => $request->products_id
+                'products_id' => $request->products_id,
+                'created_at' => $request->date,
             );
 
             StockCard::create($stock_card);
@@ -343,7 +344,8 @@ class ProductController extends Controller
                     'unit' => $request->unit,
                     'price' => $request->price,
                     'balance' => $stockcard->balance + $request->return_qty,
-                    'products_id' => $request->products_id
+                    'products_id' => $request->products_id,
+                    'created_at' => $request->date,
                 );
     
                 StockCard::create($stock_card);

@@ -22,7 +22,8 @@ class StockCard extends Model
         'supplier',
         'incharge',
         'balance',
-        'products_id'
+        'products_id',
+        'created_at'
     ];
 
     public function scopeFilter($query, array $filter){

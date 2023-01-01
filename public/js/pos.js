@@ -218,15 +218,19 @@ function addDiscount(){
     var sale_discount = parseInt($('#sale_discount').val());
     var grandtotal = parseInt($('#grandtotal').text());
     var subtotal = parseInt($('#subtotal').text().replace(/,/g, ''));
+    var pin = $('#pin').val();
+    var pos_pin = $('#pos-pin').val();
 
-    if(grandtotal){
+    if(grandtotal && pin==pos_pin){
         discounted = subtotal * (sale_discount/100);
         $('#discount_percentage').html(sale_discount);
         $('#discount').html(numberWithCommas(discounted.toFixed(2)));
         $('#discountModal').modal('toggle');
         $('#sale_discount').val('');
+        $('#pin').val('');
         calculateTotal();
     }
+
 }
 
 function payNow(){
@@ -244,6 +248,10 @@ function payment_okay(){
     var price = [];
     var quantity = [];
     var total_quantity = 0;
+
+    if(isNaN(discount)){
+        discount = 0;
+    }
 
     if(paymentcash >= payment){
  

@@ -3,6 +3,26 @@
         <div class="col-auto">
             <h1 class="app-page-title mb-0">{{ $title }}</h1>
         </div>
+        <div class="col-auto">
+            <div class="page-utilities">
+                <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+                    <div class="col-auto">
+                        <form class="docs-search-form row gx-1 align-items-center">
+                            <div class="col-auto">
+                                <input type="text" id="search-docs" name="search" class="form-control search-docs"
+                                    placeholder="Search" value="{{ old('search') }}">
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn app-btn-secondary">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--//row-->
+            </div>
+            <!--//table-utilities-->
+        </div>
+        <!--//col-auto-->
         <!--//col-auto-->
     </div>
     <!--//row-->

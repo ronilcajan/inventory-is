@@ -168,7 +168,7 @@ function addRow(){
     html_code += '<td class="cell">'+count+'</td>';
     html_code += '<td><select class="form-control barcode" name="product_id[]" onchange="loadProducts(this)" required><option value="">Search Barcode or Item</option></select></td>';
     html_code += '<td class="cell"><input type="text" class="form-control product_name" readonly></td>';
-    html_code += '<td class="cell"><input type="text" class="form-control product_qty" name="product_qty[]" onchange="calculateTotalAmount(this)" required></td>';
+    html_code += '<td class="cell"><input type="number" min="0" class="form-control product_qty" step="0.1" name="product_qty[]" onchange="calculateTotalAmount(this)" required></td>';
     html_code += '<td class="cell"><input type="number" class="form-control product_price" name="product_price[]" onchange="calculateTotalAmount1(this)" required></td>';
     html_code += '<td class="cell"><input type="number" class="form-control product_amount" name=product_amount[]" readonly></td>';
     html_code += '<td class="cell text-center""><button type="button" class="btn btn-danger text-white" onclick="removeButton(this)"><i class="fa-solid fa-minus"></i></button></td>';
@@ -182,7 +182,7 @@ function removeButton(that){
 // calculate total amount in delivery page
 function calculateTotalAmount(that){
 
-    var qty = $(that).closest("tr").find('td input.product_qty').val();
+    var qty = parseFloat($(that).closest("tr").find('td input.product_qty').val());
     var price = $(that).closest("tr").find('td input.product_price').val();
   
     $(that).closest("tr").find('td input.product_amount').val(parseFloat(qty*price).toFixed(2));
@@ -194,16 +194,17 @@ function calculateTotalAmount(that){
         totalamount += parseFloat($(this).val());
     });
 
-    $('#totalQty').val(parseInt(totalqty));
+    $('#totalQty').val(parseFloat(totalqty));
     $('#grandTotal').val((parseFloat(totalamount).toFixed(2)));
 }
 // calculate total qty in delivery page
 function calculateTotalQTY(){
     var totalqty = 0;
     $('#order_table tr td input.product_qty').each(function(){
-        totalqty += parseInt($(this).val());
+        console.log($(this).val())
+        totalqty += parseFloat($(this).val());
     });
-    return totalqty;
+    return totalqty.toFixed(2);
 }
 // calculate total in delivery page
 function calculateTotal(){

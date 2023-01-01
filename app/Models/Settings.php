@@ -16,6 +16,7 @@ class Settings extends Model
         'contact',
         'email',
         'logo',
+        'passcode'
     ];
     
 }

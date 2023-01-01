@@ -53,6 +53,11 @@
                                 value="{{ $system->email ?? null }}">
                         </div>
                         <div class="mb-3">
+                            <label for="setting-input-7" class="form-label">Passcode</label>
+                            <input type="text" class="form-control" id="setting-input-8"
+                                placeholder="Please enter passcode" name="passcode" value="{{ $system->passcode }}">
+                        </div>
+                        <div class="mb-3">
                             <label for="setting-input-7" class="form-label">Non-Vat(%)</label>
                             <input type="number" class="form-control" id="setting-input-7"
                                 placeholder="Please enter vat percentage" name="vat"
@@ -69,8 +74,8 @@
                             <input type="file" class="form-control" id="setting-input-6" name="logo"
                                 accept="image/*">
                             @if (!empty($system->logo))
-                                <img class="logo-icon mt-2" src="{{ asset('storage/' . $system->logo) }}" alt="logo"
-                                    width="80">
+                                <img class="logo-icon mt-2" src="{{ asset('storage/' . $system->logo) }}"
+                                    alt="logo" width="80">
                             @endif
 
                         </div>

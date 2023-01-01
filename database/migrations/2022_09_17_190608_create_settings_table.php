@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('logo')->nullable();
             $table->integer('vat')->nullable()->default(6);
+            $table->string('passcode')->nullable()->default('123456');
             $table->timestamps();
         });
     }

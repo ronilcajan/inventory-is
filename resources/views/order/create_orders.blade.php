@@ -82,7 +82,7 @@
                                         readonly>
                                 </td>
                                 <td class="cell">
-                                    <input type="number" min='0' class="form-control product_qty"
+                                    <input type="number" min='0' step="0.1" class="form-control product_qty"
                                         name="product_qty[]" onchange="calculateTotalAmount(this)" required>
                                 </td>
                                 <td class="cell">

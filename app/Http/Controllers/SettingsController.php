@@ -54,6 +54,7 @@ class SettingsController extends Controller
             'address' =>  'required',
             'contact' =>  'required',
             'email' =>  'required',
+            'passcode' =>  'required',
         ]);
 
         if($request->hasFile('logo')){
