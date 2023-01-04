@@ -14,7 +14,15 @@
                                     value="{{ isset($_GET['date']) ? $_GET['date'] : date('Y-m') }}">
                             </div>
                             <div class="col-auto">
-                                <button type="submit" class="btn app-btn-secondary">Search</button>
+                                <select name="status" id="" class="form-control">
+                                    <option value="all">All</option>
+                                    <option value="stock-in">Stock In</option>
+                                    <option value="stock-out">Stock Out</option>
+                                    <option value="returned-item">Returned Item</option>
+                                </select>
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn app-btn-secondary">Filter</button>
                             </div>
                         </form>
                     </div>
@@ -46,7 +54,8 @@
                     <thead>
                         <tr>
                             <th class="cell" colspan="3">
-                                <h5>STOCK CARD</h5>
+                                <h5>STOCK CARD {{ isset($_GET['status']) ? '- ' . strtoupper($_GET['status']) : null }}
+                                </h5>
                             </th>
                         </tr>
                     </thead>

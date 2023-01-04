@@ -3,6 +3,7 @@
 /* Chart.js docs: https://www.chartjs.org/ */
 
 window.chartColors = {
+	red: '#FF0000',
 	green: '#75c181',
 	gray: '#a9b5c9',
 	text: '#252930',
@@ -101,6 +102,64 @@ $.ajax({
 		var barChart = document.getElementById('canvas-barchart').getContext('2d');
 		window.myBar = new Chart(barChart, barChartConfig);
 	}
-	});
+});
 
-	
+$.ajax({
+	headers: {
+		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	},
+    type: "POST",
+    url: '/admin/dashboard/delivery',
+	success: function(response) {
+		console.log(response)
+		
+		var doughnutChartConfig = {
+			type: 'doughnut',
+			data: {
+				datasets: [{
+					data: [
+						response.delivered,
+						response.pending,
+					],
+					backgroundColor: [
+						window.chartColors.red,
+						window.chartColors.green,
+					],
+					label: 'Dataset 1'
+				}],
+				labels: [
+					'Pending',
+					'Delivered',
+				]
+			},
+			options: {
+				responsive: true,
+				legend: {
+					display: true,
+					position: 'bottom',
+					align: 'center',
+				},
+		
+				tooltips: {
+					titleMarginBottom: 10,
+					bodySpacing: 10,
+					xPadding: 16,
+					yPadding: 16,
+					borderColor: window.chartColors.border,
+					borderWidth: 1,
+					backgroundColor: '#fff',
+					bodyFontColor: window.chartColors.text,
+					titleFontColor: window.chartColors.text,
+					
+					animation: {
+						animateScale: true,
+						animateRotate: true
+					},
+				},
+			}
+		};
+
+		var doughnutChart = document.getElementById('chart-doughnut').getContext('2d');
+		window.myDoughnut = new Chart(doughnutChart, doughnutChartConfig);
+	}
+});

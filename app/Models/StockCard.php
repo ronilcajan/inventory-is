@@ -29,7 +29,13 @@ class StockCard extends Model
     public function scopeFilter($query, array $filter){
         if($filter['date'] ?? false){
             $query->whereMonth('stock_card.created_at', date('n', strtotime($filter['date'])))
-                    ->whereYear('.created_at', date('Y', strtotime($filter['date'])));
+                    ->whereYear('stock_card.created_at', date('Y', strtotime($filter['date'])));
+        }
+        if($filter['status'] ?? false){
+            if(request('status') != 'all'){
+                $query->where('stock_card.status', '=', request('status'));
+            }
+            
         }
 
         if($filter['from'] ?? false){
@@ -41,5 +47,7 @@ class StockCard extends Model
             }
             $query->where('stock_card.created_at', '>', $startDate);
         }
+
+       
     } 
 }

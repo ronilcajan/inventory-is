@@ -358,26 +358,24 @@ class ProductController extends Controller
 
     public function stockCard(Products $product){
         
-      if(request(['date'])){
-
         $stock_card = StockCard::select('*','stock_card.created_at as created_at')
-            ->leftJoin('supplier','stock_card.supplier', '=', 'supplier.id')
-            ->where('products_id',$product->id)
-            ->filter(request(['date']))
-            ->orderBy('stock_card.created_at','ASC')
-            ->get();
+                ->leftJoin('supplier','stock_card.supplier', '=', 'supplier.id')
+                ->where('products_id',$product->id)
+                ->whereMonth('stock_card.created_at', Carbon::now()->month)
+                ->whereYear('stock_card.created_at', Carbon::now()->year)
+                ->filter(request(['date','status']))
+                ->orderBy('stock_card.created_at','ASC')
+                ->get();
+                
+        if(request(['date'])){
 
-      }else{
-
-        $stock_card = StockCard::select('*','stock_card.created_at as created_at')
-            ->leftJoin('supplier','stock_card.supplier', '=', 'supplier.id')
-            ->where('products_id',$product->id)
-            ->whereMonth('stock_card.created_at', Carbon::now()->month)
-            ->whereYear('stock_card.created_at', Carbon::now()->year)
-            ->filter(request(['date']))
-            ->orderBy('stock_card.created_at','ASC')
-            ->get();
-      }
+            $stock_card = StockCard::select('*','stock_card.created_at as created_at')
+                ->leftJoin('supplier','stock_card.supplier', '=', 'supplier.id')
+                ->where('products_id',$product->id)
+                ->filter(request(['date','status']))
+                ->orderBy('stock_card.created_at','ASC')
+                ->get();
+        }
 
         return view('product.stock_card',[
             'title' => 'Stock Card Management',

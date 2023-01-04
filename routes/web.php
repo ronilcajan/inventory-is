@@ -37,6 +37,7 @@ Route::middleware('guest')->prefix('auth')->group(function () {
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/dashboard/yearlySales', [DashboardController::class, 'sales']);
+    Route::post('/dashboard/delivery', [DashboardController::class, 'delivery']);
 
     Route::get('/products/items', [ProductController::class, 'show'])->name('items');
     Route::get('/products/create', [ProductController::class, 'create'])->name('items-create');

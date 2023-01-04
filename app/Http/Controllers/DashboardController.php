@@ -2,37 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Order;
+use App\Models\Sales;
+use App\Models\StockIn;
 use App\Models\Products;
 use App\Models\SaleItems;
-use Carbon\Carbon;
-use App\Models\Sales;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function index(){
 
         $total_sales = Sales::whereYear('created_at', Carbon::now()->format('Y'))->sum('total_amount');
+        $today_sales = Sales::whereDate('created_at', Carbon::today())->sum('total_amount');
         $product = Products::count('id');
-        $stock_in = Products::join('stock_in', 'stock_in.products_id', '=', 'products.id')->sum('stock_in.stock_in_qty');
-        $stock_out = Products::join('stock_out', 'stock_out.products_id', '=', 'products.id')->sum('stock_out.stock_out_qty');
-        $product_sold = SaleItems::select('*','sale_items.created_at as created_at')
+        $user = User::with('roles')->count('id');
+        $order_closed = Order::where('status','=','closed')->get();
+        $order_pending = Order::where('status','=','pending')->get();
+        $stock_in = StockIn::where('stock_in_qty', '!=', 0)->get();
+        $latest_product = SaleItems::select('*','sale_items.created_at as created_at')
                                     ->join('products', 'products.barcode', '=', 'sale_items.sale_product')
                                     ->orderBy('sale_items.created_at', 'DESC')->get();
+
+        $most_product = SaleItems::select('*','sale_items.created_at as created_at', DB::raw('COUNT(sale_items.sale_qty) as count_qty'))
+                                    ->join('products', 'products.barcode', '=', 'sale_items.sale_product')
+                                    ->groupBy('sale_items.sale_product')
+                                    ->orderBy('count_qty', 'DESC')->get();
+
+        // dd($most_product);
+
         return view('/dashboard',[
             'title' => 'Dashboard',
             'total_sales' => $total_sales,
-            'product_sold' => $product_sold,
+            'product_sold' => $latest_product,
+            'most_product' => $most_product,
+            'store' => $stock_in,
             'product' => $product,
-            'stock_in' => $stock_in,
-            'stock_out' => $stock_out,
+            'today_sales' => $today_sales,
+            'user' => $user,
+            'order_closed' => $order_closed,
+            'order_pending' => $order_pending,
         ]);
     }
 
     public function sales(){
-
-       
 
         $jan = Sales::whereMonth('created_at', '01')->whereYear('created_at', Carbon::now()->format('Y'))->sum('total_amount');
         $feb = Sales::whereMonth('created_at', '02')->whereYear('created_at', Carbon::now()->format('Y'))->sum('total_amount');
@@ -60,6 +77,19 @@ class DashboardController extends Controller
             'oct' => $oct,
             'nov' => $nov,
             'dec' => $dec,
+        );
+        
+        return response()->json($data);
+    }
+
+    public function delivery(){
+
+        $delivered = Order::where('status','=','closed')->get();
+        $pending = Order::where('status','=','pending')->get();
+    
+        $data = array(
+            'delivered' => count($delivered),
+            'pending' => count($pending),
         );
         
         return response()->json($data);
