@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LowStockExport;
 use Carbon\Carbon;
 use App\Models\StockIn;
 use App\Models\Category;
@@ -48,12 +49,26 @@ class ProductController extends Controller
             ->leftJoin('products','stock_card.products_id', '=', 'products.id')
             ->orderBy('stock_card.created_at','ASC')
             ->filter(request(['from']))
-            
             ->paginate(10);
 
         return view('product.items_report',[
             'title' => 'Product Reports',
             'products' => $products,
+        ]);
+    }
+
+    public function low_stock_report(Request $request){
+        if($request->export){
+            return Excel::download(new LowStockExport, date('Y-m-d-h-i-s').'-low-stocks-report.xlsx');
+        }
+        $stocks = Products::leftJoin('stock_in','stock_in.products_id', '=', 'products.id')
+                ->leftJoin('stock_out','stock_out.products_id', '=', 'products.id')
+                ->orderBy('products.name','ASC')
+                ->paginate(10);
+
+        return view('product.low_stock_report',[
+            'title' => 'Low Stock Reports',
+            'stocks' => $stocks,
         ]);
     }
 
@@ -354,7 +369,7 @@ class ProductController extends Controller
         }
         return back()->with('error','Returning a product is not successfull!');
         
-    }
+    } 
 
     public function stockCard(Products $product){
         

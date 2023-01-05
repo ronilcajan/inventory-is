@@ -63,6 +63,19 @@ class DashboardController extends Controller
         $oct = Sales::whereMonth('created_at', '10')->whereYear('created_at', Carbon::now()->format('Y'))->sum('total_amount');
         $nov = Sales::whereMonth('created_at', '11')->whereYear('created_at', Carbon::now()->format('Y'))->sum('total_amount');
         $dec = Sales::whereMonth('created_at', '12')->whereYear('created_at', Carbon::now()->format('Y'))->sum('total_amount');
+
+        $last_jan = Sales::whereMonth('created_at', '01')->whereYear('created_at', Carbon::now()->format('Y')-1)->sum('total_amount');
+        $last_feb = Sales::whereMonth('created_at', '02')->whereYear('created_at', Carbon::now()->format('Y')-1)->sum('total_amount');
+        $last_mar = Sales::whereMonth('created_at', '03')->whereYear('created_at', Carbon::now()->format('Y')-1)->sum('total_amount');
+        $last_apr = Sales::whereMonth('created_at', '04')->whereYear('created_at', Carbon::now()->format('Y')-1)->sum('total_amount');
+        $last_may = Sales::whereMonth('created_at', '05')->whereYear('created_at', Carbon::now()->format('Y')-1)->sum('total_amount');
+        $last_jun = Sales::whereMonth('created_at', '06')->whereYear('created_at', Carbon::now()->format('Y')-1)->sum('total_amount');
+        $last_jul = Sales::whereMonth('created_at', '07')->whereYear('created_at', Carbon::now()->format('Y')-1)->sum('total_amount');
+        $last_aug = Sales::whereMonth('created_at', '08')->whereYear('created_at', Carbon::now()->format('Y')-1)->sum('total_amount');
+        $last_sep = Sales::whereMonth('created_at', '09')->whereYear('created_at', Carbon::now()->format('Y')-1)->sum('total_amount');
+        $last_oct = Sales::whereMonth('created_at', '10')->whereYear('created_at', Carbon::now()->format('Y')-1)->sum('total_amount');
+        $last_nov = Sales::whereMonth('created_at', '11')->whereYear('created_at', Carbon::now()->format('Y')-1)->sum('total_amount');
+        $last_dec = Sales::whereMonth('created_at', '12')->whereYear('created_at', Carbon::now()->format('Y')-1)->sum('total_amount');
     
         $data = array(
             'jan' => $jan,
@@ -77,6 +90,17 @@ class DashboardController extends Controller
             'oct' => $oct,
             'nov' => $nov,
             'dec' => $dec,
+            'last_jan' => $last_jan,
+            'last_feb' => $last_feb,
+            'last_mar' => $last_mar,
+            'last_apr' => $last_apr,
+            'last_may' => $last_may,
+            'last_jun' => $last_jun,
+            'last_jul' => $last_jul,
+            'last_aug' => $last_aug,
+            'last_oct' => $last_oct,
+            'last_nov' => $last_nov,
+            'last_dec' => $last_dec,
         );
         
         return response()->json($data);

@@ -54,17 +54,27 @@ function searchProducts(that){
                 }
                 if (data[i]['image'] != null){
                     img = SITE_URL+'/storage/'+data[i]['image'];
-                }
-                html_code += '<div class="col-6 col-md-4 mt-2"><div class="app-card app-card-doc shadow-sm"><div class="app-card-thumb-holder p-3">';
-                html_code += '<div class="app-card-thumb"><img class="thumb-image" src="'+img+'" alt=""></div>';
-                html_code += '<a class="app-card-link-mask itemSelect" href="#addQTY" data-bs-toggle="modal" data-qty="'+data[i]['stock_out_qty']+'" data-barcode="'+data[i]['barcode']+'" data-name="'+data[i]['name']+'" data-unit="'+data[i]['unit']+'" data-price="'+data[i]['mark_up']+'" onclick="itemSelect(this)">';
-                html_code += '</a></div><div class="app-card-body p-3 has-card-actions">';
-                html_code += '<h4 class="app-doc-title truncate mb-0"><a class="itemSelect" data-bs-toggle="modal" href="#addQTY" data-qty="'+data[i]['stock_out_qty']+'" data-barcode="'+data[i]['barcode']+'" data-name="'+data[i]['name']+'" data-unit="'+data[i]['unit']+'" data-price="'+data[i]['mark_up']+'" onclick="itemSelect(this)">'+data[i]['name']+'</a></h4>';
-                html_code += '<div class="app-doc-meta"><ul class="list-unstyled mb-0">';
-                html_code += '<li><span class="text-muted">Stocks: </span> '+data[i]['stock_out_qty']+'</li>';
-                html_code += '<li><span class="text-muted">Unit: </span> '+ data[i]['unit']+'</li>';
-                html_code += '<li><span class="text-muted">Price: </span>P '+ parseFloat(data[i]['mark_up']).toFixed(2)+'</li>';
-                html_code += '</ul></div></div></div></div>'; 
+                } 
+                // html_code += '<div class="col-6 col-md-4 mt-2"><div class="app-card app-card-doc shadow-sm"><div class="app-card-thumb-holder p-3">';
+                // html_code += '<div class="app-card-thumb"><img class="thumb-image" src="'+img+'" alt=""></div>';
+                // html_code += '<a class="app-card-link-mask itemSelect" href="#addQTY" data-bs-toggle="modal" data-qty="'+data[i]['stock_out_qty']+'" data-barcode="'+data[i]['barcode']+'" data-name="'+data[i]['name']+'" data-unit="'+data[i]['unit']+'" data-price="'+data[i]['mark_up']+'" onclick="itemSelect(this)">';
+                // html_code += '</a></div><div class="app-card-body p-3 has-card-actions">';
+                // html_code += '<h4 class="app-doc-title truncate mb-0"><a class="itemSelect" data-bs-toggle="modal" href="#addQTY" data-qty="'+data[i]['stock_out_qty']+'" data-barcode="'+data[i]['barcode']+'" data-name="'+data[i]['name']+'" data-unit="'+data[i]['unit']+'" data-price="'+data[i]['mark_up']+'" onclick="itemSelect(this)">'+data[i]['name']+'</a></h4>';
+                // html_code += '<div class="app-doc-meta"><ul class="list-unstyled mb-0">';
+                // html_code += '<li><span class="text-muted">Stocks: </span> '+data[i]['stock_out_qty']+'</li>';
+                // html_code += '<li><span class="text-muted">Unit: </span> '+ data[i]['unit']+'</li>';
+                // html_code += '<li><span class="text-muted">Price: </span>P '+ parseFloat(data[i]['mark_up']).toFixed(2)+'</li>';
+                // html_code += '</ul></div></div></div></div>'; 
+                html_code += '<div class="mt-2"><div class="app-card app-card-doc shadow-sm row p-2"><div class="col-auto">';
+                html_code += '<div class="app-card-thumb"><img class="thumb-image" src="'+img+'" alt="" width="50"></div>';
+                html_code += '<a class="app-card-link-mask itemSelect" href="#addQTY" data-bs-toggle="modal" data-qty="'+parseInt(data[i]['stock_out_qty']+data[i]['stock_in_qty'])+'" data-barcode="'+data[i]['barcode']+'" data-name="'+data[i]['name']+'" data-unit="'+data[i]['unit']+'" data-price="'+data[i]['mark_up']+'" onclick="itemSelect(this)">';
+                html_code += '</a></div><div class="col-auto">';
+                html_code += '<h2 class="app-doc-title mb-0"><a class="itemSelect" data-bs-toggle="modal" href="#addQTY" data-qty="'+parseInt(data[i]['stock_out_qty']+data[i]['stock_in_qty'])+'" data-barcode="'+data[i]['barcode']+'" data-name="'+data[i]['name']+'" data-unit="'+data[i]['unit']+'" data-price="'+data[i]['mark_up']+'" onclick="itemSelect(this)">'+data[i]['name']+'</a></h2>';
+                html_code += '<div class="app-doc-meta row mt-1">';
+                html_code += '<div class="col-auto"><span class="text-muted">Stocks: </span> '+parseInt(data[i]['stock_out_qty']+data[i]['stock_in_qty'])+'</div>';
+                html_code += '<div class="col-auto"><span class="text-muted">Unit: </span> '+ data[i]['unit']+'</div>';
+                html_code += '<div class="col-auto"><span class="text-muted">Price: </span>P '+ parseFloat(data[i]['mark_up']).toFixed(2);
+                html_code += '</div></div></div></div></div>'; 
             }
             $("#product-items").html(html_code);
         }

@@ -46,7 +46,6 @@ class SalesExport implements FromQuery, WithHeadings
             'Discount Added',
             'Total Amount',
             'Cash Amount',
-            
         ];
     }
 }

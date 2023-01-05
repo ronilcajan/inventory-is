@@ -79,7 +79,7 @@
                                                 Edit
                                             </button>
                                         </div>
-                                        @if (Auth::user()->id != $user->id)
+                                        @if ($user->username != 'admin')
                                             <div class="col-auto p-0">
                                                 <form class="p-0 m-0" action="/admin/deleteUser/{{ $user->id }}"
                                                     method="post"

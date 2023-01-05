@@ -90,6 +90,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     Route::get('/report/sales', [SalesController::class, 'sales_report']);
     Route::get('/report/items', [ProductController::class, 'items_report']);
+    Route::get('/report/low_stocks', [ProductController::class, 'low_stock_report']);
     Route::get('/report/sold_items', [SalesController::class, 'sold_items_report']);
 
     Route::get('/discount', [DiscountController::class, 'show'])->name('discount');

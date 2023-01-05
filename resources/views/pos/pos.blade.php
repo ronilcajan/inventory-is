@@ -23,9 +23,10 @@
                                         src="{{ $row->image ? asset('storage/' . $row->image) : asset('/images/product.png') }}"
                                         alt="" width="50">
                                     <a class="app-card-link-mask" href="#addQTY" data-bs-toggle="modal"
-                                        data-qty="{{ $row->stock_out_qty }}" data-barcode="{{ $row->barcode }}"
-                                        data-name="{{ $row->name }}" data-unit="{{ $row->unit }}"
-                                        data-price="{{ $row->mark_up }}" onclick="itemSelect(this)"></a>
+                                        data-qty="{{ $row->stock_out_qty + $row->stock_in_qty }}"
+                                        data-barcode="{{ $row->barcode }}" data-name="{{ $row->name }}"
+                                        data-unit="{{ $row->unit }}" data-price="{{ $row->mark_up }}"
+                                        onclick="itemSelect(this)"></a>
                                 </div>
                                 <div class="col-auto">
                                     <h2 class="app-doc-title mb-0">
@@ -34,10 +35,11 @@
                                             data-unit="{{ $row->unit }}" data-price="{{ $row->mark_up }}"
                                             onclick="itemSelect(this)">{{ $row->name }}</a>
                                     </h2>
+
                                     <div class="app-doc-meta row mt-1">
                                         <div class="col-auto">
                                             <span class="text-muted">
-                                                Stocks:</span> {{ $row->stock_out_qty }}
+                                                Stocks:</span> {{ $row->stock_out_qty + $row->stock_in_qty }}
                                         </div>
                                         <div class="col-auto ">
                                             <span class="text-muted">

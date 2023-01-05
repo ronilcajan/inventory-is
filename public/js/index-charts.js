@@ -5,6 +5,7 @@
 window.chartColors = {
 	red: '#FF0000',
 	green: '#75c181',
+	blue: '#5b99ea', // rgba(91,153,234, 1)
 	gray: '#a9b5c9',
 	text: '#252930',
 	border: '#e7e9ed'
@@ -19,13 +20,14 @@ $.ajax({
     url: '/admin/dashboard/yearlySales',
 	success: function(response) {
 		console.log(response.jan)
-		
+		let this_year = new Date().getFullYear();
+		let last_year = new Date().getFullYear()-1;
 		var barChartConfig = {
 			type: 'bar',
 			data: {
 				labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 				datasets: [{
-					label: 'Sales',
+					label: this_year+' Sales',
 					backgroundColor: window.chartColors.green,
 					borderColor: window.chartColors.green,
 					borderWidth: 1,
@@ -45,7 +47,30 @@ $.ajax({
 						response.nov,
 						response.dec
 					]
-				}]
+				},
+				{
+					label: last_year+' Sales',
+					backgroundColor: window.chartColors.blue,
+					borderColor: window.chartColors.blue,
+					borderWidth: 1,
+					maxBarThickness: 16,
+					
+					data: [
+						response.last_jan,
+						response.last_feb,
+						response.last_mar,
+						response.last_apr,
+						response.last_may,
+						response.last_jun,
+						response.last_jul,
+						response.last_aug,
+						response.last_sep,
+						response.last_oct,
+						response.last_nov,
+						response.last_dec
+					]
+				}
+			]
 			},
 			options: {
 				responsive: true,
@@ -56,7 +81,7 @@ $.ajax({
 				},
 				title: {
 					display: true,
-					text: 'Monthly Sales'
+					text: 'Annual Sales Summary'
 				},
 				tooltips: {
 					mode: 'index',
@@ -70,7 +95,6 @@ $.ajax({
 					backgroundColor: '#fff',
 					bodyFontColor: window.chartColors.text,
 					titleFontColor: window.chartColors.text,
-
 				},
 				scales: {
 					xAxes: [{
@@ -90,7 +114,7 @@ $.ajax({
 						ticks: {
 							beginAtZero: true,
 							userCallback: function(value, index, values) {
-								return '₱' + value.toLocaleString();   //Ref: https://stackoverflow.com/questions/38800226/chart-js-add-commas-to-tooltip-and-y-axis
+								return '₱ ' + (value.toFixed(2));   //Ref: https://stackoverflow.com/questions/38800226/chart-js-add-commas-to-tooltip-and-y-axis
 							}
 						},
 						
