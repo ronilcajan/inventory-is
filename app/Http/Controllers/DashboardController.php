@@ -33,8 +33,6 @@ class DashboardController extends Controller
                                     ->groupBy('sale_items.sale_product')
                                     ->orderBy('count_qty', 'DESC')->get();
 
-        // dd($most_product);
-
         return view('/dashboard',[
             'title' => 'Dashboard',
             'total_sales' => $total_sales,

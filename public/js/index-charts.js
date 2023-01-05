@@ -142,18 +142,18 @@ $.ajax({
 			data: {
 				datasets: [{
 					data: [
-						response.delivered,
+						response.delivered, 
 						response.pending,
 					],
 					backgroundColor: [
-						window.chartColors.red,
 						window.chartColors.green,
+						window.chartColors.blue,
 					],
 					label: 'Dataset 1'
 				}],
 				labels: [
-					'Pending',
 					'Delivered',
+					'Pending',
 				]
 			},
 			options: {
