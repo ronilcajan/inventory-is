@@ -55,21 +55,11 @@ function searchProducts(that){
                 if (data[i]['image'] != null){
                     img = SITE_URL+'/storage/'+data[i]['image'];
                 } 
-                // html_code += '<div class="col-6 col-md-4 mt-2"><div class="app-card app-card-doc shadow-sm"><div class="app-card-thumb-holder p-3">';
-                // html_code += '<div class="app-card-thumb"><img class="thumb-image" src="'+img+'" alt=""></div>';
-                // html_code += '<a class="app-card-link-mask itemSelect" href="#addQTY" data-bs-toggle="modal" data-qty="'+data[i]['stock_out_qty']+'" data-barcode="'+data[i]['barcode']+'" data-name="'+data[i]['name']+'" data-unit="'+data[i]['unit']+'" data-price="'+data[i]['mark_up']+'" onclick="itemSelect(this)">';
-                // html_code += '</a></div><div class="app-card-body p-3 has-card-actions">';
-                // html_code += '<h4 class="app-doc-title truncate mb-0"><a class="itemSelect" data-bs-toggle="modal" href="#addQTY" data-qty="'+data[i]['stock_out_qty']+'" data-barcode="'+data[i]['barcode']+'" data-name="'+data[i]['name']+'" data-unit="'+data[i]['unit']+'" data-price="'+data[i]['mark_up']+'" onclick="itemSelect(this)">'+data[i]['name']+'</a></h4>';
-                // html_code += '<div class="app-doc-meta"><ul class="list-unstyled mb-0">';
-                // html_code += '<li><span class="text-muted">Stocks: </span> '+data[i]['stock_out_qty']+'</li>';
-                // html_code += '<li><span class="text-muted">Unit: </span> '+ data[i]['unit']+'</li>';
-                // html_code += '<li><span class="text-muted">Price: </span>P '+ parseFloat(data[i]['mark_up']).toFixed(2)+'</li>';
-                // html_code += '</ul></div></div></div></div>'; 
                 html_code += '<div class="mt-2"><div class="app-card app-card-doc shadow-sm row p-2"><div class="col-auto">';
                 html_code += '<div class="app-card-thumb"><img class="thumb-image" src="'+img+'" alt="" width="50"></div>';
-                html_code += '<a class="app-card-link-mask itemSelect" href="#addQTY" data-bs-toggle="modal" data-qty="'+parseInt(data[i]['stock_out_qty']+data[i]['stock_in_qty'])+'" data-barcode="'+data[i]['barcode']+'" data-name="'+data[i]['name']+'" data-unit="'+data[i]['unit']+'" data-price="'+data[i]['mark_up']+'" onclick="itemSelect(this)">';
+                html_code += '<a class="app-card-link-mask itemSelect" href="#addQTY" data-bs-toggle="modal" data-qty="'+parseInt(data[i]['stock_out_qty'])+'" data-barcode="'+data[i]['barcode']+'" data-name="'+data[i]['name']+'" data-unit="'+data[i]['unit']+'" data-price="'+data[i]['mark_up']+'" onclick="itemSelect(this)">';
                 html_code += '</a></div><div class="col-auto">';
-                html_code += '<h2 class="app-doc-title mb-0"><a class="itemSelect" data-bs-toggle="modal" href="#addQTY" data-qty="'+parseInt(data[i]['stock_out_qty']+data[i]['stock_in_qty'])+'" data-barcode="'+data[i]['barcode']+'" data-name="'+data[i]['name']+'" data-unit="'+data[i]['unit']+'" data-price="'+data[i]['mark_up']+'" onclick="itemSelect(this)">'+data[i]['name']+'</a></h2>';
+                html_code += '<h2 class="app-doc-title mb-0"><a class="itemSelect" data-bs-toggle="modal" href="#addQTY" data-qty="'+parseInt(data[i]['stock_out_qty'])+'" data-barcode="'+data[i]['barcode']+'" data-name="'+data[i]['name']+'" data-unit="'+data[i]['unit']+'" data-price="'+data[i]['mark_up']+'" onclick="itemSelect(this)">'+data[i]['name']+'</a></h2>';
                 html_code += '<div class="app-doc-meta row mt-1">';
                 html_code += '<div class="col-auto"><span class="text-muted">Stocks: </span> '+parseInt(data[i]['stock_out_qty']+data[i]['stock_in_qty'])+'</div>';
                 html_code += '<div class="col-auto"><span class="text-muted">Unit: </span> '+ data[i]['unit']+'</div>';
@@ -87,6 +77,22 @@ function itemSelect(that){ //products from POS to modal
     var mark_up = $(that).attr('data-price');
     var max_qty = $(that).attr('data-qty');
     var name = $(that).attr('data-name');
+
+    var get_barcode =[];
+    var get_qty =[];
+    $('#sale-items tr td.barcode').each(function(){
+        get_barcode.push($(this).text());
+    });
+    $('#sale-items tr td.subQTY').each(function(){
+        get_qty.push($(this).text());
+    });
+
+    for(let i = 0; i <= get_barcode.length; i++){
+        if(barcode == get_barcode[i]){
+            max_qty -= get_qty[i]
+            break
+        }
+    }
 
     $('#product_qty').val('');
     $('#product_unit').val(unit);
@@ -107,30 +113,85 @@ function addItem(){
     var qty = parseInt($('#product_qty').val());
     var price = $('#product_price').val();
     var unit = $('#product_unit').val();
-
     var rowCount = $('#sale-items tbody tr').length;
 
-    if(qty != 0 ){
-        if(qty <= max_qty){
+    if(rowCount==0){
+        if(qty != 0 && qty <= max_qty){
             var sub_total = parseFloat(price*qty);
-            var html_code = ''; 
-            html_code += '<tr id="rowCount-'+rowCount+'">';
-            html_code += '<td class="barcode">'+barcode+'</td>';
-            html_code += '<td>'+name+'</td>';
-            html_code += '<td class="subQTY">'+numberWithCommas(qty)+'</td>';
-            html_code += '<td>'+unit+'</td>';
-            html_code += '<td class="price">'+parseFloat(numberWithCommas(price)).toFixed(2)+'</td>';
-            html_code += '<td class="subtotal">'+numberWithCommas(sub_total.toFixed(2))+'</td>';
-            html_code += '<td><div class="card-toolbar text-right"><a href="#editQTY" data-bs-toggle="modal" data-rowcount="'+rowCount+'" data-qty="'+qty+'" data-max_qty="'+max_qty+'" data-barcode="'+barcode+'" data-name="'+name+'" data-unit="'+unit+'" data-price="'+price+'" data-total="'+sub_total+'" onclick="edititemSelect(this)" class="confirm-delete text-info" title="Delete"><i class="fas fa-pencil-alt"></i></a> <a href="#" data-qty="'+qty+'" data-total="'+sub_total+'" onclick="removeitemButton(this)" class="confirm-delete text-danger" title="Delete"><i class="fas fa-trash-alt"></i></a></div></td>';
-            html_code += '</tr>';
-            $('#search_barcode').val('');
-            $('#addQTY').modal('toggle');
-            $('#product_qty').val('');
-            $("#sale-items").append(html_code);
+            addPurchaseItem(rowCount,barcode,name,qty,unit,price,sub_total,max_qty)
             calculateTotal();
         }
-    }
+    }else{
+        var get_barcode =[];
+        var get_qty =[];
+        var get_rowcount =[];
+        $('#sale-items tr td.barcode').each(function(){
+            get_barcode.push($(this).text());
+        });
+        $('#sale-items tr td.subQTY').each(function(){
+            get_qty.push($(this).text());
+        });
+        $('#sale-items tr.rowCount').each(function(){
+            get_rowcount.push($(this).attr('data-count'));
+        });
+
+        if(qty != 0 && qty <= max_qty){
+            var item_exist = 0;
+            for(let i = 0; i <= get_barcode.length; i++){
+                if(barcode == get_barcode[i]){
+                    var new_qty = parseInt(get_qty[i]) + parseInt(qty);
+                    var sub_total = parseFloat(price*new_qty);
+                    item_exist = 1;
+
+                    $("#sale-items tr#"+get_rowcount[i]).remove();
+                    
+                    var html_code = ''; 
+                    html_code += '<tr id="'+get_rowcount[i]+'" class="rowCount" data-count="'+get_rowcount[i]+'">';
+                    html_code += '<td class="barcode">'+barcode+'</td>';
+                    html_code += '<td>'+name+'</td>';
+                    html_code += '<td class="subQTY">'+numberWithCommas(new_qty)+'</td>';
+                    html_code += '<td>'+unit+'</td>';
+                    html_code += '<td class="price">'+parseFloat(price).toFixed(2)+'</td>';
+                    html_code += '<td class="subtotal">'+numberWithCommas(sub_total.toFixed(2))+'</td>';
+                    html_code += '<td><div class="card-toolbar text-right"><a href="#editQTY" data-bs-toggle="modal" data-rowcount="'+rowCount+'" data-qty="'+new_qty+'" data-max_qty="'+max_qty+'" data-barcode="'+barcode+'" data-name="'+name+'" data-unit="'+unit+'" data-price="'+price+'" data-total="'+sub_total+'" onclick="edititemSelect(this)" class="confirm-delete text-info" title="Delete"><i class="fas fa-pencil-alt"></i></a> <a href="#" data-qty="'+new_qty+'" data-total="'+sub_total+'" onclick="removeitemButton(this)" class="confirm-delete text-danger" title="Delete"><i class="fas fa-trash-alt"></i></a></div></td>';
+                    html_code += '</tr>';
+                    $('#search_barcode').val('');
+                    $('#addQTY').modal('toggle');
+                    $('#product_qty').val('');
+                    $("#sale-items").append(html_code);
+                    calculateTotal();
+                    break
+                }else{
+                    item_exist = 0
+                }
+            }
+            if(item_exist==0){
+                var sub_total = parseFloat(price*qty);
+                addPurchaseItem(rowCount,barcode,name,qty,unit,price,sub_total,max_qty)
+                calculateTotal();
+            }
+           
     
+        }
+       
+    }
+}
+
+function addPurchaseItem(rowCount,barcode,name,qty,unit,price,sub_total,max_qty){
+    var html_code = ''; 
+    html_code += '<tr id="rowCount-'+rowCount+'" class="rowCount" data-count="rowCount-'+rowCount+'">';
+    html_code += '<td class="barcode">'+barcode+'</td>';
+    html_code += '<td>'+name+'</td>';
+    html_code += '<td class="subQTY">'+numberWithCommas(qty)+'</td>';
+    html_code += '<td>'+unit+'</td>';
+    html_code += '<td class="price">'+parseFloat(price).toFixed(2)+'</td>';
+    html_code += '<td class="subtotal">'+numberWithCommas(sub_total.toFixed(2))+'</td>';
+    html_code += '<td><div class="card-toolbar text-right"><a href="#editQTY" data-bs-toggle="modal" data-rowcount="'+rowCount+'" data-qty="'+qty+'" data-max_qty="'+max_qty+'" data-barcode="'+barcode+'" data-name="'+name+'" data-unit="'+unit+'" data-price="'+price+'" data-total="'+sub_total+'" onclick="edititemSelect(this)" class="confirm-delete text-info" title="Delete"><i class="fas fa-pencil-alt"></i></a> <a href="#" data-qty="'+qty+'" data-total="'+sub_total+'" onclick="removeitemButton(this)" class="confirm-delete text-danger" title="Delete"><i class="fas fa-trash-alt"></i></a></div></td>';
+    html_code += '</tr>';
+    $('#search_barcode').val('');
+    $('#addQTY').modal('toggle');
+    $('#product_qty').val('');
+    $("#sale-items").append(html_code);
 }
 
 // add item in pos page
